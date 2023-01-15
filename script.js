@@ -5,7 +5,18 @@ const digitElements = document.querySelectorAll(".digit");
 const digitElementsArray = Array.from(digitElements);
 
 // consts
-const allowedDigitKeys = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+const allowedDigitKeys = [
+  "Digit1",
+  "Digit2",
+  "Digit3",
+  "Digit4",
+  "Digit5",
+  "Digit6",
+  "Digit7",
+  "Digit8",
+  "Digit9",
+  "Digit0",
+];
 const allowedHotKeys = [
   "Backspace",
   "Tab",
@@ -16,19 +27,23 @@ const allowedHotKeys = [
 const allowedKeys = [...allowedDigitKeys, ...allowedHotKeys];
 
 otpContainer.addEventListener("keydown", (ev) => {
-  if (!allowedKeys.includes(ev.key)) {
+  console.log(ev);
+  if (!allowedKeys.includes(ev.code)) {
     ev.preventDefault();
     return;
   }
-  if ((ev.key === "Backspace" && !ev.target.value) || ev.key === "ArrowLeft") {
+  if (
+    (ev.code === "Backspace" && !ev.target.value) ||
+    ev.code === "ArrowLeft"
+  ) {
     ev.target.previousElementSibling?.focus();
-  } else if (ev.key === "ArrowRight") {
+  } else if (ev.code === "ArrowRight") {
     ev.target.nextElementSibling?.focus();
   }
 });
 
 otpContainer.addEventListener("keyup", (ev) => {
-  if (ev.target.value && allowedDigitKeys.includes(ev.key)) {
+  if (ev.target.value && allowedDigitKeys.includes(ev.code)) {
     ev.target.nextElementSibling?.focus();
   }
   updateSubmitButton();
