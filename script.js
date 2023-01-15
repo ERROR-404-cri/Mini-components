@@ -55,3 +55,5 @@ const updateSubmitButton = () => {
 const clearOtpsOnSubmit = () => {
   digitElements.forEach((digitEle) => (digitEle.value = ""));
 };
+
+// paste functionality if the input is correct (6 numbers). // todo
