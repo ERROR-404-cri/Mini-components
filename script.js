@@ -5,8 +5,8 @@ const digitElements = document.querySelectorAll(".digit");
 const digitElementsArray = Array.from(digitElements);
 
 // consts
-const allowedDigitKeys = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57];
-const allowedHotKeys = [8, 9, 37, 39, 46];
+const allowedDigitKeys = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57]; // numbers
+const allowedHotKeys = [8, 9, 37, 39, 46]; // backspace, tab, arrowLeft, arrowRight, delete
 const allowedKeys = [...allowedDigitKeys, ...allowedHotKeys];
 
 otpContainer.addEventListener("keydown", (ev) => {
