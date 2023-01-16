@@ -68,7 +68,8 @@ const fillOtpsOnPaste = (digits) => {
   updateSubmitButton();
 };
 
-otpContainer.addEventListener("paste", async () => {
+otpContainer.addEventListener("paste", async (ev) => {
+  ev.preventDefault();
   try {
     const clipBoardText = await navigator.clipboard.readText();
     if (clipBoardText && clipBoardText.length === 6) {
@@ -78,6 +79,7 @@ otpContainer.addEventListener("paste", async () => {
       );
       if (isValidText) {
         fillOtpsOnPaste(copiedTextArray);
+        submitButton.focus();
       }
     }
   } catch {}
