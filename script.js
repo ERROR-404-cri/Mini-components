@@ -5,28 +5,39 @@ const digitElements = document.querySelectorAll(".digit");
 const digitElementsArray = Array.from(digitElements);
 
 // consts
-const allowedDigitKeys = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57]; // numbers
+const allowedDigits = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
 const allowedHotKeys = [8, 9, 37, 39, 46]; // backspace, tab, arrowLeft, arrowRight, delete
-const allowedKeys = [...allowedDigitKeys, ...allowedHotKeys];
-
-otpContainer.addEventListener("keydown", (ev) => {
-  console.log(ev);
-  if (!allowedKeys.includes(ev.keyCode)) {
-    ev.preventDefault();
-    return;
-  }
-  if ((ev.keyCode === 8 && !ev.target.value) || ev.keyCode === 37) {
-    ev.target.previousElementSibling?.focus();
-  } else if (ev.keyCode === 39) {
-    ev.target.nextElementSibling?.focus();
-  }
-});
+const allowedKeys = [...allowedDigits, ...allowedHotKeys];
+const hotKeysMapping = {
+  backspace: 8,
+};
 
 otpContainer.addEventListener("keyup", (ev) => {
-  if (ev.target.value && allowedDigitKeys.includes(ev.keyCode)) {
+  if (
+    !allowedKeys.includes(ev.target.value) &&
+    !allowedKeys.includes(ev.keyCode)
+  ) {
+    ev.target.value = "";
+    return;
+  }
+
+  if (ev.key === "ArrowLeft") {
+    ev.target.previousElementSibling?.focus();
+  } else if (
+    ev.key === "ArrowRight" ||
+    (ev.target.value && allowedDigits.includes(ev.target.value))
+  ) {
     ev.target.nextElementSibling?.focus();
   }
   updateSubmitButton();
+});
+
+otpContainer.addEventListener("keydown", (ev) => {
+  if (ev.keyCode === hotKeysMapping.backspace && !ev.target.value) {
+    ev.target.previousElementSibling?.focus();
+  } else if (ev.keyCode === hotKeysMapping.backspace && ev.target.value) {
+    ev.target.value = "";
+  }
 });
 
 submitButton.addEventListener("click", () => {
@@ -52,3 +63,4 @@ const clearOtpsOnSubmit = () => {
 };
 
 // paste functionality if the input is correct (6 numbers). // todo
+// change for mweb
