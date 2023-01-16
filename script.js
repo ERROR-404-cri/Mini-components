@@ -33,6 +33,7 @@ otpContainer.addEventListener("keyup", (ev) => {
 });
 
 otpContainer.addEventListener("keydown", (ev) => {
+  // backspace handling only
   if (ev.keyCode === hotKeysMapping.backspace && !ev.target.value) {
     ev.target.previousElementSibling?.focus();
   } else if (ev.keyCode === hotKeysMapping.backspace && ev.target.value) {
