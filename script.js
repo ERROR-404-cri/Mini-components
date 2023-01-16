@@ -68,9 +68,6 @@ const fillOtpsOnPaste = (digits) => {
   updateSubmitButton();
 };
 
-// paste functionality if the input is correct (6 numbers). // todo
-// change for mweb
-// navigator.clipboard;
 otpContainer.addEventListener("paste", async () => {
   try {
     const clipBoardText = await navigator.clipboard.readText();
