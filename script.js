@@ -42,7 +42,6 @@ otpContainer.addEventListener("keydown", (ev) => {
 
 submitButton.addEventListener("click", () => {
   clearOtpsOnSubmit();
-  updateSubmitButton();
 });
 
 const isOtpValidated = () => {
@@ -60,7 +59,28 @@ const updateSubmitButton = () => {
 
 const clearOtpsOnSubmit = () => {
   digitElements.forEach((digitEle) => (digitEle.value = ""));
+  updateSubmitButton();
+};
+
+const fillOtpsOnPaste = (digits) => {
+  digitElements.forEach((digitEle, index) => (digitEle.value = digits[index]));
+  updateSubmitButton();
 };
 
 // paste functionality if the input is correct (6 numbers). // todo
 // change for mweb
+// navigator.clipboard;
+otpContainer.addEventListener("paste", async () => {
+  try {
+    const clipBoardText = await navigator.clipboard.readText();
+    if (clipBoardText && clipBoardText.length === 6) {
+      const copiedTextArray = clipBoardText.split("");
+      const isValidText = copiedTextArray.every((text) =>
+        allowedDigits.includes(text)
+      );
+      if (isValidText) {
+        fillOtpsOnPaste(copiedTextArray);
+      }
+    }
+  } catch {}
+});
