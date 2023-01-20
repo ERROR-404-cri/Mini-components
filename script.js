@@ -10,6 +10,8 @@ const allowedHotKeys = [8, 9, 37, 39, 46]; // backspace, tab, arrowLeft, arrowRi
 const allowedKeys = [...allowedDigits, ...allowedHotKeys];
 const hotKeysMapping = {
   backspace: 8,
+  tab: 9,
+  leftShift: 16,
 };
 
 otpContainer.addEventListener("keyup", (ev) => {
@@ -20,8 +22,12 @@ otpContainer.addEventListener("keyup", (ev) => {
     ev.target.value = "";
     return;
   }
-
-  if (ev.key === "ArrowLeft") {
+  if (
+    ev.keyCode === hotKeysMapping.tab ||
+    ev.keyCode === hotKeysMapping.leftShift
+  ) {
+    return;
+  } else if (ev.key === "ArrowLeft") {
     ev.target.previousElementSibling?.focus();
   } else if (
     ev.key === "ArrowRight" ||
